@@ -3,7 +3,7 @@ const doctors = [
   {
     id: 1,
     name: "Dr. Priya Sharma",
-    specialization: "Psychologist",
+    specialization: "Psychiatrist",
     slots: [
       "10:00 AM - 12:00 PM",
       "1:00 PM - 3:00 PM",
@@ -23,7 +23,7 @@ const doctors = [
   {
     id: 3,
     name: "Dr. Anjali Verma",
-    specialization: "Counsellor",
+    specialization: "Dermatologist",
     slots: [
       "10:00 AM - 12:00 PM",
       "1:00 PM - 3:00 PM",
