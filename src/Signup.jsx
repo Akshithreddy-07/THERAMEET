@@ -40,6 +40,69 @@ function Signup({
           required
         />
 
+        {!isLogin && (
+  <>
+    <input
+      type="number"
+      placeholder="Age"
+      value={age}
+      onChange={(e) =>
+        setAge(e.target.value)
+      }
+      required
+    />
+
+    <input
+      type="text"
+      placeholder="Gender"
+      value={gender}
+      onChange={(e) =>
+        setGender(e.target.value)
+      }
+      required
+    />
+
+    <input
+      type="number"
+      placeholder="Height (cm)"
+      value={height}
+      onChange={(e) =>
+        setHeight(e.target.value)
+      }
+      required
+    />
+
+    <input
+      type="number"
+      placeholder="Weight (kg)"
+      value={weight}
+      onChange={(e) =>
+        setWeight(e.target.value)
+      }
+      required
+    />
+
+    <input
+      type="text"
+      placeholder="Blood Group"
+      value={bloodGroup}
+      onChange={(e) =>
+        setBloodGroup(e.target.value)
+      }
+      required
+    />
+
+    <input
+      type="tel"
+      placeholder="Phone Number"
+      value={phone}
+      onChange={(e) =>
+        setPhone(e.target.value)
+      }
+      required
+    />
+  </>
+)}
         <input
           type="email"
           placeholder="Email"

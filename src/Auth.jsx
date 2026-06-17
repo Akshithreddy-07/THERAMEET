@@ -2,33 +2,107 @@ import { useState } from "react";
 
 function Auth({
   setPage,
-  setIsLoggedIn
+  setIsLoggedIn,
+  setUser
 }) {
-  const [isLogin, setIsLogin] =
-    useState(true);
-
-  const [name, setName] =
-    useState("");
-
-  const [email, setEmail] =
-    useState("");
-
-  const [password, setPassword] =
-    useState("");
+   const [isLogin, setIsLogin] = useState(true);
+   const [name, setName] = useState("");
+   const [age, setAge] = useState("");
+   const [gender, setGender] = useState("");
+   const [height, setHeight] = useState("");
+   const [weight, setWeight] = useState("");
+   const [bloodGroup, setBloodGroup] = useState("");
+   const [phone, setPhone] = useState("");
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    setIsLoggedIn(true);
+if (!isLogin) {
+  const userData = {
+  name,
+  age,
+  gender,
+  height,
+  weight,
+  bloodGroup,
+  phone,
+  email,
+  password,
+  };
 
-    alert(
-      isLogin
-        ? "Login Successful!"
-        : "Account Created Successfully!"
+  const users =
+    JSON.parse(
+      localStorage.getItem("users")
+    ) || [];
+
+  const userExists =
+    users.find(
+      (user) =>
+        user.email === email
     );
 
-    setPage("consult");
-  };
+  if (userExists) {
+    alert(
+      "Email already registered!"
+    );
+    return;
+  }
+
+  users.push(userData);
+
+  localStorage.setItem(
+    "users",
+    JSON.stringify(users)
+  );
+
+  alert(
+    "Account Created Successfully!"
+  );
+
+  setIsLogin(true);
+
+  setName("");
+  setAge("");
+  setGender("");
+  setHeight("");
+  setWeight("");
+  setBloodGroup("");
+  setPhone("");
+  setEmail("");
+  setPassword("");
+} else {
+    const users =
+  JSON.parse(
+    localStorage.getItem("users")
+  ) || [];
+
+const foundUser =
+  users.find(
+    (user) =>
+      user.email === email &&
+      user.password === password
+  );
+
+if (foundUser) {
+  setIsLoggedIn(true);
+
+  setUser(foundUser);
+
+  localStorage.setItem(
+    "currentUser",
+    JSON.stringify(foundUser)
+  );
+
+  alert("Login Successful!");
+
+  setPage("profile");
+} else {
+  alert("Invalid Email or Password");
+}
+  }
+};
 
   return (
     <div className="login-page">
@@ -40,17 +114,68 @@ function Auth({
 
       <form onSubmit={handleSubmit}>
 
-        {!isLogin && (
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) =>
-              setName(e.target.value)
-            }
-            required
-          />
-        )}
+       {!isLogin && (
+  <div className="register-grid">
+
+    <input
+      type="text"
+      placeholder="Full Name"
+      value={name}
+      onChange={(e) => setName(e.target.value)}
+      className="full-width"
+      required
+    />
+
+    <input
+      type="number"
+      placeholder="Age"
+      value={age}
+      onChange={(e) => setAge(e.target.value)}
+      required
+    />
+
+    <input
+      type="text"
+      placeholder="Gender"
+      value={gender}
+      onChange={(e) => setGender(e.target.value)}
+      required
+    />
+
+    <input
+      type="number"
+      placeholder="Height (cm)"
+      value={height}
+      onChange={(e) => setHeight(e.target.value)}
+      required
+    />
+
+    <input
+      type="number"
+      placeholder="Weight (kg)"
+      value={weight}
+      onChange={(e) => setWeight(e.target.value)}
+      required
+    />
+
+    <input
+      type="text"
+      placeholder="Blood Group"
+      value={bloodGroup}
+      onChange={(e) => setBloodGroup(e.target.value)}
+      required
+    />
+
+    <input
+      type="tel"
+      placeholder="Phone Number"
+      value={phone}
+      onChange={(e) => setPhone(e.target.value)}
+      required
+    />
+
+  </div>
+)}
 
         <input
           type="email"

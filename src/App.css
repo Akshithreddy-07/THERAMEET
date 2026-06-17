@@ -5,6 +5,13 @@
   font-family: "Poppins", sans-serif;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   background: #0f172a;
   color: white;
@@ -109,6 +116,50 @@ body {
   gap: 30px;
 
   padding: 70px 40px;
+}
+
+.register-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.register-grid input {
+  width: 100%;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.appointments-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.appointment-card {
+  width: 320px;
+  background: #1e293b;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.appointment-card:hover {
+  transform: translateY(-8px);
+}
+
+.appointment-card h3 {
+  color: #60a5fa;
+  margin-bottom: 15px;
+}
+
+.appointment-card p {
+  margin: 10px 0;
+  color: #cbd5e1;
 }
 
 .info-card {
@@ -360,21 +411,62 @@ body {
 /* Responsive */
 
 @media (max-width: 768px) {
+
   .navbar {
     flex-direction: column;
     gap: 15px;
+    padding: 15px;
+  }
+
+  .logo {
+    font-size: 24px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-section {
+    min-height: 100vh;
+    height: auto;
+    padding: 40px 15px;
+  }
+
+  .hero-overlay {
+    width: 100%;
+    padding: 25px 15px;
   }
 
   .hero-overlay h1 {
-    font-size: 38px;
+    font-size: 32px;
+    line-height: 1.2;
   }
 
   .hero-overlay p {
     font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .info-section {
+    padding: 40px 15px;
+  }
+
+  .info-card {
+    width: 100%;
+    max-width: 350px;
   }
 
   .login-page form,
-  .appointment-form {
-    width: 90%;
+  .appointment-form,
+  .profile-card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .doctor-card {
+    width: 100%;
+    max-width: 350px;
   }
 }

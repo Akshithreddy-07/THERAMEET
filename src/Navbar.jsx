@@ -28,9 +28,9 @@ function Navbar({
             </button>
 
             <button
-              onClick={() => setPage("book")}
+              onClick={() => setPage("appointments")}
             >
-              Book Appointment
+              My Appointments
             </button>
 
             <button
