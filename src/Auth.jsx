@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { toast } from "react-toastify";
 function Auth({
   setPage,
   setIsLoggedIn,
@@ -44,8 +44,8 @@ if (!isLogin) {
     );
 
   if (userExists) {
-    alert(
-      "Email already registered!"
+    toast.warning(
+      "User already registered!"
     );
     return;
   }
@@ -57,7 +57,7 @@ if (!isLogin) {
     JSON.stringify(users)
   );
 
-  alert(
+  toast.success(
     "Account Created Successfully!"
   );
 
@@ -95,11 +95,11 @@ if (foundUser) {
     JSON.stringify(foundUser)
   );
 
-  alert("Login Successful!");
+  toast.success("Login Successful!");
 
   setPage("profile");
 } else {
-  alert("Invalid Email or Password");
+  toast.error("User does not exist");
 }
   }
 };

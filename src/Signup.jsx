@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function Signup({
   setPage,
@@ -18,7 +19,7 @@ function Signup({
 
     setIsLoggedIn(true);
 
-    alert(
+    toast.success(
       "Account Created Successfully!"
     );
 

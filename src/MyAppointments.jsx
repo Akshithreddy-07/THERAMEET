@@ -1,19 +1,53 @@
+import { useState } from "react";
 function MyAppointments({
   user
 }) {
-  const appointments =
+
+    const [appointmentsData,
+  setAppointmentsData] =
+  useState(
     JSON.parse(
       localStorage.getItem(
         "appointments"
       )
-    ) || [];
+    ) || []
+  );
 
-  const userAppointments =
-    appointments.filter(
+ const userAppointments =
+  appointmentsData.filter(
+    (appointment) =>
+      appointment.patientEmail ===
+      user?.email
+  );
+    
+   const handleCancel = (
+  appointmentToCancel
+) => {
+
+  const updatedAppointments =
+    appointmentsData.map(
       (appointment) =>
-        appointment.patientEmail ===
-        user?.email
+        appointment ===
+        appointmentToCancel
+          ? {
+              ...appointment,
+              status:
+                "Cancelled",
+            }
+          : appointment
     );
+
+  localStorage.setItem(
+    "appointments",
+    JSON.stringify(
+      updatedAppointments
+    )
+  );
+
+  setAppointmentsData(
+    updatedAppointments
+  );
+};
 
   return (
     <div className="consult-page">
@@ -79,9 +113,34 @@ function MyAppointments({
 
                 <p>
                   <strong>Status:</strong>{" "}
-                  Confirmed
+                  <span
+  style={{
+    color:
+      appointment.status ===
+      "Cancelled"
+        ? "#ef4444"
+        : "#22c55e"
+  }}
+>
+  {appointment.status}
+</span>
+                 {/* {appointment.status} */}
                 </p>
 
+                {
+  appointment.status !==
+  "Cancelled" && (
+    <button
+     onClick={() =>
+  handleCancel(appointment)
+}
+      className="cancel-btn"
+    >
+      Cancel Appointment
+    </button>
+  )
+}
+                  
               </div>
             )
           )}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { toast } from "react-toastify";
 function BookAppointment({
   selectedDoctor,
   user
@@ -33,6 +33,8 @@ function BookAppointment({
   date,
 
   meetLink: "",
+
+  status: "Confirmed",
 };
 
 const appointments =
@@ -52,7 +54,7 @@ const alreadyBooked =
   );
 
 if (alreadyBooked) {
-  alert(
+   toast.error(
     "This slot is already booked. Please choose another slot."
   );
   return;
@@ -65,7 +67,7 @@ localStorage.setItem(
   JSON.stringify(appointments)
 );
 
-    alert(
+     toast.success(
       "Appointment Booked Successfully!"
     );
 

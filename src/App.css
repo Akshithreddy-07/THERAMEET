@@ -39,6 +39,96 @@ body {
   backdrop-filter: blur(10px);
 }
 
+.dashboard {
+  width: 90%;
+  margin: 30px auto;
+}
+
+.profile-header {
+  background: #1e293b;
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 25px;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    #3b82f6,
+    #60a5fa
+  );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-size: 42px;
+  font-weight: bold;
+}
+
+.header-info h1 {
+  margin: 0;
+  color: #60a5fa;
+  font-size: 50px;
+}
+
+.patient-id {
+  color: #cbd5e1;
+  margin-top: 5px;
+}
+
+.status {
+  color: #22c55e;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.dashboard-card {
+  background: #1e293b;
+  border-radius: 20px;
+  padding: 25px;
+  min-height: 220px;
+}
+
+.dashboard-card h3 {
+  color: #60a5fa;
+  margin-bottom: 20px;
+}
+
+.dashboard-card p {
+  margin: 15px 0;
+  font-size: 18px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header-info h1 {
+    font-size: 36px;
+  }
+}
+
 .logo {
   color: #60a5fa;
   cursor: pointer;
@@ -123,6 +213,7 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 15px;
 }
+
 
 .register-grid input {
   width: 100%;
@@ -271,6 +362,18 @@ body {
 
 /* Consult Doctor */
 
+.slot-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+.slot-container button {
+  padding: 12px 18px;
+  border-radius: 12px;
+  width: 220px;
+  margin: 0 auto;
+}
 .consult-page {
   padding: 60px 30px;
   text-align: center;
@@ -290,14 +393,11 @@ body {
 }
 
 .doctor-card {
-  width: 300px;
-
   background: #1e293b;
-
-  padding: 25px;
-
   border-radius: 20px;
-
+  padding: 25px;
+  min-height: 300px;
+  text-align: center;
   transition: 0.3s;
 }
 
@@ -469,4 +569,19 @@ body {
     width: 100%;
     max-width: 350px;
   }
+}
+
+/* cancel button */
+.cancel-btn {
+  margin-top: 10px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  opacity: 0.9;
 }

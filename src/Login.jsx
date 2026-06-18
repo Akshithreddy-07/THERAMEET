@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+toast.success("Appointment Booked Successfully!");
 function Login({
   setPage,
   setIsLoggedIn
@@ -13,7 +13,7 @@ function Login({
 
     setIsLoggedIn(true);
 
-    alert("Login Successful!");
+    toast.success("Login Successful!");
 
     setPage("consult");
   };

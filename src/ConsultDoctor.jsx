@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 const doctors = [
   {
     id: 1,
     name: "Dr. Priya Sharma",
     specialization: "Psychiatrist",
+    experience: "10 Years",
+    qualification: "MBBS, MD Psychiatry",
     slots: [
       "10:00 AM - 12:00 PM",
       "1:00 PM - 3:00 PM",
@@ -14,6 +17,8 @@ const doctors = [
     id: 2,
     name: "Dr. Rajesh Kumar",
     specialization: "Therapist",
+    experience: "8 Years",
+    qualification: "M.Sc Clinical Psychology",
     slots: [
       "10:00 AM - 12:00 PM",
       "1:00 PM - 3:00 PM",
@@ -24,6 +29,8 @@ const doctors = [
     id: 3,
     name: "Dr. Anjali Verma",
     specialization: "Dermatologist",
+    experience: "12 Years",
+    qualification: "MBBS, MD Dermatology",
     slots: [
       "10:00 AM - 12:00 PM",
       "1:00 PM - 3:00 PM",
@@ -42,6 +49,14 @@ function ConsultDoctor({
   doctor,
   slot
 ) => {
+
+   if (!problem.trim()) {
+    toast.error(
+      "Please describe your problem first."
+    );
+    return;
+  }
+
   setSelectedDoctor({
     ...doctor,
     selectedSlot: slot,
@@ -61,12 +76,14 @@ function ConsultDoctor({
   }}
 >
   <textarea
-    placeholder="Describe your problem..."
+   placeholder="Describe your symptoms, concerns, or reason for consultation..."
     value={problem}
     onChange={(e) =>
       setProblem(e.target.value)
     }
     rows="4"
+    maxLength="200"
+    required
     style={{
       width: "100%",
       padding: "15px",
@@ -74,6 +91,17 @@ function ConsultDoctor({
       fontSize: "16px",
     }}
   />
+
+    <p
+    style={{
+      fontSize: "12px",
+      color: "#94a3b8",
+      textAlign: "right",
+      marginTop: "5px",
+    }}
+  >
+    {problem.length}/200 characters
+  </p>
 </div>
 
       <div className="doctor-container">
@@ -85,6 +113,16 @@ function ConsultDoctor({
             <h3>{doctor.name}</h3>
 
             <p>{doctor.specialization}</p>
+
+            <p>
+  <strong>Experience:</strong>{" "}
+  {doctor.experience}
+</p>
+
+<p>
+  <strong>Qualification:</strong>{" "}
+  {doctor.qualification}
+</p>
 
             <div className="slot-container">
   {doctor.slots.map((slot, index) => (
