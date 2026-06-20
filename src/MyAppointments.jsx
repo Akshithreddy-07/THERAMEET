@@ -20,6 +20,22 @@ function MyAppointments({
       user?.email
   );
     
+  const cancelledAppointments =
+  userAppointments.filter(
+    (appt) =>
+      appt.status === "Cancelled"
+  );
+
+const otherAppointments =
+  userAppointments.filter(
+    (appt) =>
+      appt.status !== "Cancelled"
+  );
+
+const displayedAppointments = [
+  ...otherAppointments,
+  ...cancelledAppointments.slice(-2)
+];
    const handleCancel = (
   appointmentToCancel
 ) => {
@@ -57,7 +73,7 @@ function MyAppointments({
 
         <div className="appointments-container">
 
-          {userAppointments.map(
+          {displayedAppointments.map(
             (
               appointment,
               index
@@ -96,7 +112,8 @@ function MyAppointments({
 
                 <p>
                   <strong>Meet Link:</strong>{" "}
-                  {appointment.meetLink ? (
+                  {appointment.status === "Accepted" &&
+ appointment.meetLink ? (
                     <a
                       href={
                         appointment.meetLink
@@ -113,17 +130,20 @@ function MyAppointments({
 
                 <p>
                   <strong>Status:</strong>{" "}
-                  <span
+  <span
   style={{
     color:
-      appointment.status ===
-      "Cancelled"
+      appointment.status === "Accepted"
+        ? "#22c55e"
+        : appointment.status === "Rejected"
         ? "#ef4444"
-        : "#22c55e"
+        : "#f59e0b",
+    fontWeight: "bold",
   }}
 >
   {appointment.status}
 </span>
+
                  {/* {appointment.status} */}
                 </p>
 
@@ -140,6 +160,7 @@ function MyAppointments({
     </button>
   )
 }
+
                   
               </div>
             )

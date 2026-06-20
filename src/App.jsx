@@ -9,19 +9,23 @@ import BookAppointment from "./BookAppointment";
 import Profile from "./Profile";
 import MyAppointments from "./MyAppointments";
 import "./App.css";
-
+import About from "./About";
+import DoctorDashboard from "./DoctorDashboard";
+import DoctorAppointments from "./DoctorAppointments";
 function App() {
   const [page, setPage] = useState("home");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [selectedDoctor, setSelectedDoctor] =
   useState(null);
+  const [userType, setUserType] =useState("patient");
   return (
     <>
       <Navbar
         setPage={setPage}
         isLoggedIn={isLoggedIn}
         setIsLoggedIn={setIsLoggedIn}
+        userType={userType}
       />
 
       {page === "home" && <Home />}
@@ -31,7 +35,8 @@ function App() {
           setPage={setPage}
           setIsLoggedIn={setIsLoggedIn}
           setUser={setUser}
-        />
+          setUserType={setUserType}
+         />
       )}
 
       {page === "consult" &&
@@ -56,6 +61,24 @@ function App() {
 )}
       {page === "profile" &&
         isLoggedIn && (<Profile user={user} />)}
+
+     {page === "about" && <About />}
+
+     {page === "doctor-dashboard" &&
+  isLoggedIn &&
+  userType === "doctor" && (
+    <DoctorDashboard
+      doctor={user}
+    />
+)}
+
+{page === "doctor-appointments" &&
+  isLoggedIn &&
+  userType === "doctor" && (
+    <DoctorAppointments
+      doctor={user}
+    />
+)}
 
     <ToastContainer
        position="top-right"

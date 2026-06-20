@@ -1,7 +1,8 @@
 function Navbar({
   setPage,
   isLoggedIn,
-  setIsLoggedIn
+  setIsLoggedIn,
+  userType
 }) {
   return (
     <nav className="navbar">
@@ -19,7 +20,42 @@ function Navbar({
           >
             Login / Sign Up
           </button>
-        ) : (
+        ): userType === "doctor" ? (
+
+        <>
+         <button
+      onClick={() =>
+        setPage("doctor-dashboard")
+      }
+    >
+      Dashboard
+         </button>
+
+         <button
+      onClick={() =>
+        setPage("doctor-appointments")
+      }
+    >
+      Appointments
+         </button>
+
+         <button
+      onClick={() => {
+        setIsLoggedIn(false);
+        localStorage.removeItem(
+  "currentUser"
+);
+localStorage.removeItem(
+  "currentDoctor"
+);
+        setPage("home");
+      }}
+    >
+      Logout
+         </button>
+      </>
+
+        )  : (
           <>
             <button
               onClick={() => setPage("consult")}
@@ -40,8 +76,20 @@ function Navbar({
             </button>
 
             <button
+              onClick={() =>setPage("about")}
+            >       
+              About
+            </button>
+
+            <button
               onClick={() => {
                 setIsLoggedIn(false);
+                localStorage.removeItem(
+  "currentUser"
+);
+localStorage.removeItem(
+  "currentDoctor"
+);
                 setPage("home");
               }}
             >

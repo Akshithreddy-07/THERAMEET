@@ -16,9 +16,9 @@ const doctors = [
   {
     id: 2,
     name: "Dr. Rajesh Kumar",
-    specialization: "Therapist",
+    specialization: "Nutritionist ",
     experience: "8 Years",
-    qualification: "M.Sc Clinical Psychology",
+    qualification: "M.Sc. Nutrition and Dietetics",
     slots: [
       "10:00 AM - 12:00 PM",
       "1:00 PM - 3:00 PM",

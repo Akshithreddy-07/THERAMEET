@@ -13,28 +13,16 @@ function BookAppointment({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-  const appointment = {
-  doctorName:
-    selectedDoctor?.name,
-
-  specialization:
-    selectedDoctor?.specialization,
-
-  slot:
-    selectedDoctor?.selectedSlot,
-
-  problem:
-    selectedDoctor?.problem,  
-
+const appointment = {
+  doctorName: selectedDoctor?.name,
+  specialization: selectedDoctor?.specialization,
+  slot: selectedDoctor?.selectedSlot,
+  problem: selectedDoctor?.problem,
   patientName,
-
   patientEmail: user?.email,
-  
   date,
-
   meetLink: "",
-
-  status: "Confirmed",
+  status: "Pending",
 };
 
 const appointments =

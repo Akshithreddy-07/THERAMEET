@@ -3,7 +3,8 @@ import { toast } from "react-toastify";
 function Auth({
   setPage,
   setIsLoggedIn,
-  setUser
+  setUser,
+  setUserType
 }) {
    const [isLogin, setIsLogin] = useState(true);
    const [name, setName] = useState("");
@@ -15,9 +16,82 @@ function Auth({
    const [phone, setPhone] = useState("");
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
+   const [isDoctorLogin,setIsDoctorLogin] =useState(false);
+   const doctors = [
+  {
+    id: "DOC001",
+    password: "doctor123",
+    name: "Dr. Priya Sharma",
+    specialization: "Psychiatrist",
+    experience: "10 Years",
+    qualification: "MBBS, MD Psychiatry",
+    email: "priya@therameet.com"
+  },
 
+  {
+    id: "DOC002",
+    password: "doctor123",
+    name: "Dr. Rajesh Kumar",
+    specialization: "Therapist",
+    experience: "8 Years",
+    qualification:
+      "M.Sc Clinical Psychology",
+    email: "rajesh@therameet.com"
+  },
+
+  {
+    id: "DOC003",
+    password: "doctor123",
+    name: "Dr. Anjali Verma",
+    specialization:
+      "Dermatologist",
+    experience: "12 Years",
+    qualification:
+      "MBBS, MD Dermatology",
+    email: "anjali@therameet.com"
+  }
+];
   const handleSubmit = (e) => {
   e.preventDefault();
+  if (isDoctorLogin) {
+
+  const doctor =
+    doctors.find(
+      (doc) =>
+        doc.id === email &&
+        doc.password === password
+    );
+
+  if (doctor) {
+
+    setIsLoggedIn(true);
+
+    setUser(doctor);
+
+    setUserType("doctor");
+
+    localStorage.setItem(
+      "currentDoctor",
+      JSON.stringify(doctor)
+    );
+
+    toast.success(
+      "Doctor Login Successful"
+    );
+
+    setPage(
+      "doctor-dashboard"
+    );
+
+    return;
+  }
+
+  toast.error(
+    "Invalid Doctor Credentials"
+  );
+
+  return;
+}
 
 if (!isLogin) {
   const userData = {
@@ -63,15 +137,13 @@ if (!isLogin) {
 
   setIsLogin(true);
 
-  setName("");
-  setAge("");
-  setGender("");
-  setHeight("");
-  setWeight("");
-  setBloodGroup("");
-  setPhone("");
-  setEmail("");
-  setPassword("");
+setName("");
+setAge("");
+setGender("");
+setHeight("");
+setWeight("");
+setBloodGroup("");
+setPhone("");
 } else {
     const users =
   JSON.parse(
@@ -90,6 +162,8 @@ if (foundUser) {
 
   setUser(foundUser);
 
+  setUserType("patient");
+
   localStorage.setItem(
     "currentUser",
     JSON.stringify(foundUser)
@@ -107,21 +181,24 @@ if (foundUser) {
   return (
     <div className="login-page">
       <h2>
-        {isLogin
-          ? "Login"
-          : "Create Account"}
-      </h2>
+  {isDoctorLogin
+    ? "Doctor Login"
+    : isLogin
+    ? "Patient Login"
+    : "Create Account"}
+</h2>
 
       <form onSubmit={handleSubmit}>
 
-       {!isLogin && (
+       {!isLogin &&
+ !isDoctorLogin && (
   <div className="register-grid">
 
     <input
       type="text"
       placeholder="Full Name"
       value={name}
-      onChange={(e) => setName(e.target.value)}
+      onChange={(e) => setName(e.target.value.toUpperCase())}
       className="full-width"
       required
     />
@@ -134,13 +211,30 @@ if (foundUser) {
       required
     />
 
-    <input
-      type="text"
-      placeholder="Gender"
-      value={gender}
-      onChange={(e) => setGender(e.target.value)}
-      required
-    />
+    <select
+  value={gender}
+  onChange={(e) =>
+    setGender(e.target.value)
+  }
+  required
+>
+  <option value="">
+    Select Gender
+  </option>
+
+  <option value="MALE">
+    Male
+  </option>
+
+  <option value="FEMALE">
+    Female
+  </option>
+
+  <option value="OTHER">
+    Other
+  </option>
+  
+</select>
 
     <input
       type="number"
@@ -162,7 +256,7 @@ if (foundUser) {
       type="text"
       placeholder="Blood Group"
       value={bloodGroup}
-      onChange={(e) => setBloodGroup(e.target.value)}
+      onChange={(e) => setBloodGroup(e.target.value.toUpperCase())}
       required
     />
 
@@ -178,8 +272,12 @@ if (foundUser) {
 )}
 
         <input
-          type="email"
-          placeholder="Email"
+          type="text"
+placeholder={
+  isDoctorLogin
+    ? "Doctor ID"
+    : "Email"
+}
           value={email}
           onChange={(e) =>
             setEmail(e.target.value)
@@ -205,6 +303,30 @@ if (foundUser) {
       </form>
 
       <p className="toggle-text">
+        <p className="toggle-text">
+
+  {!isDoctorLogin ? (
+    <button
+      className="switch-btn"
+      onClick={() => {
+        setIsDoctorLogin(true);
+        setIsLogin(true);
+      }}
+    >
+      Doctor Login
+    </button>
+  ) : (
+    <button
+      className="switch-btn"
+      onClick={() =>
+        setIsDoctorLogin(false)
+      }
+    >
+      Patient Login
+    </button>
+  )}
+
+</p>
         {isLogin
           ? "New user?"
           : "Already have an account?"}
